@@ -38,5 +38,20 @@ public class BlogPostController {
 		model.addAttribute("postIdToChange", id);
 		return "blogpost/update";
 	}
+	@PostMapping("/posts/update/{id}")
+	public String updatePost(BlogPost blogPost, Model model, @PathVariable Long id) {
+
+		BlogPost blogPostById = blogPostRepository.findBlogPostById(id);
+		
+		blogPostById.setTitle(blogPost.getTitle());
+		blogPostById.setAuthor(blogPost.getAuthor());
+		blogPostById.setBlogEntry(blogPost.getBlogEntry());
+		
+		blogPostRepository.save(blogPostById);
+		// I also made an adjustment. Instead of loading the file I wanted to redirect instread
+		return "redirect:/";
+		//
+	}
+	
 	
 }
